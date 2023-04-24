@@ -7,7 +7,7 @@ void Player::Initialize(Model* model, uint32_t texturehandle)
 	assert(model);
 	model_ = model;
 	textureHandle_ = texturehandle;
-	worldTransform_;
+	worldTransform_.Initialize();
 }
 
 void Player::Update()

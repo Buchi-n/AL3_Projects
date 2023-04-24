@@ -17,7 +17,6 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 	textureHandle_ = TextureManager::Load("sample.png");
 	sprite_ = Sprite::Create(textureHandle_, {100, 50});
-	worldTransform_.Initialize();
 	viewProjection_.Initialize();
 	model_ = Model::Create();
 	//自キャラの生成
