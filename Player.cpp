@@ -1,64 +1,52 @@
-
 #include "Player.h"
-#include "Input.h"
-#include "cassert"
 #include "ImGuiManager.h"
+#include "Input.h"
+#include <cassert>
 
-void Player::Initialize(Model* model, uint32_t texturehandle) 
-{
+void Player::Initialize(Model* model, uint32_t textureHundle) {
 	assert(model);
 	model_ = model;
-	textureHandle_ = texturehandle;
 	worldTransform_.Initialize();
-	//ƒVƒ“ƒOƒ‹ƒgƒ“ƒCƒ“ƒXƒ^ƒ“ƒX‚ðŽæ“¾‚·‚é
+	textureHundle_ = textureHundle;
 	input_ = Input::GetInstance();
 }
 
-void Player::Update() 
-{ 
-	worldTransform_.TransferMatrix(); 
-	//ƒLƒƒƒ‰ƒNƒ^[‚ÌˆÚ“®ƒxƒNƒgƒ‹
+void Player::Updete() {
 	Vector3 move = {0, 0, 0};
-	//ƒLƒƒƒ‰ƒNƒ^[‚ÌˆÚ“®‘¬“x
+
 	const float kCharacterSpeed = 0.2f;
 
-	//‰Ÿ‚µ‚½•ûŒü‚ÅˆÚ“®ƒxƒNƒgƒ‹‚ð•ÏX(¶‰E)
-	if (input_->PushKey(DIK_LEFT))
-	{
+	if (input_->PushKey(DIK_LEFT)) {
 		move.x -= kCharacterSpeed;
 	}
-	else if (input_->PushKey(DIK_RIGHT))
-	{
+	if (input_->PushKey(DIK_RIGHT)) {
 		move.x += kCharacterSpeed;
 	}
-	//‰Ÿ‚µ‚½•ûŒü‚ÅˆÚ“®ƒxƒNƒgƒ‹‚ð•ÏX(ã‰º)
-	if (input_->PushKey(DIK_UP))
-	{
-		move.y -= kCharacterSpeed;
-	}
-	else if (input_->PushKey(DIK_DOWN))
-	{
+	if (input_->PushKey(DIK_UP)) {
 		move.y += kCharacterSpeed;
 	}
-	//À•WˆÚ“®(ƒxƒNƒgƒ‹‚Ì‰ÁŽZ)
+	if (input_->PushKey(DIK_DOWN)) {
+		move.y -= kCharacterSpeed;
+	}
+
 	worldTransform_.translation_.x += move.x;
 	worldTransform_.translation_.y += move.y;
 	worldTransform_.translation_.z += move.z;
 
-	//worldTransform_.matWorld_=
-		
+	worldTransform_.matWorld_ = MakeAffineMatrix(
+	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
+
 	const float kMoveLimitX = 10.0f;
 	const float kMoveLimitY = 10.0f;
 
-	worldTransform_.translation_.x = max(worldTransform_.translation_.x,-kMoveLimitX);
+	worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
 	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
 	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
 	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
 
-	//s—ñ“]‘—
-	//worldTransform_.
-	
-	//ƒLƒƒƒ‰ƒNƒ^[‚ÌÀ•W‚ð‰æ–Ê•\Ž¦‚·‚éˆ—
+	// è¡Œåˆ—è»¢é€
+	worldTransform_.TransferMatrix();
+
 	ImGui::Begin("player");
 	float sliderValue[3] = {
 	    worldTransform_.translation_.x, worldTransform_.translation_.y,
@@ -69,5 +57,6 @@ void Player::Update()
 }
 
 void Player::Draw(ViewProjection& viewProjection) {
-	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+
+	model_->Draw(worldTransform_, viewProjection, textureHundle_);
 }
