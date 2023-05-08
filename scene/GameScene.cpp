@@ -19,9 +19,9 @@ void GameScene::Initialize() {
 	sprite_ = Sprite::Create(textureHandle_, {100, 50});
 	viewProjection_.Initialize();
 	model_ = Model::Create();
-	//自キャラの生成
+	// 自キャラの生成
 	player_ = new Player();
-	//自キャラの初期化
+	// 自キャラの初期化
 	player_->Initialize(model_, textureHandle_);
 }
 
