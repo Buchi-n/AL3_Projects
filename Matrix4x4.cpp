@@ -1,6 +1,6 @@
 #include "Matrix4x4.h"
 #include <cmath>
-
+//çsóÒ
 Matrix4x4 MakeScaleMatrix(const Vector3& scale) {
 	Matrix4x4 result;
 	result = {
