@@ -16,8 +16,8 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position) {
 }
 
 void PlayerBullet::Update() {
-	//ワールドトランスフォーム初期化
-	// worldTransform_ =
+	//ワールドトランスフォーム更新
+	WorldTransform::UpdateMatrix()
 }
 
 void PlayerBullet::Draw(const ViewProjection& viewProjection) { 
