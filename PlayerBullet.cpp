@@ -17,9 +17,7 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position) {
 
 void PlayerBullet::Update() {
 	//ワールドトランスフォーム更新
-	//worldTransform_.matWorld_ = WorldTransform::UpdateMatrix();
-
-
+	worldTransform_.UpdateMatrix();
 
 }
 

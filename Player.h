@@ -3,6 +3,7 @@
 #include "Model.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "PlayerBullet.h"
 
 /// <summary>
 /// プレイヤークラス
@@ -24,11 +25,15 @@ public:
 	/// </summary>
 	/// <param name="viewProjection"></param>
 	void Draw(ViewProjection& viewProjection);
+	/// <summary>
+	/// 攻撃
+	/// </summary>
+	void Attack();
 
 private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
 	uint32_t textureHundle_ = 0u;
-
 	Input* input_ = nullptr;
+	PlayerBullet* bullet_ = nullptr;
 };

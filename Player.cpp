@@ -2,6 +2,7 @@
 #include "ImGuiManager.h"
 #include "Input.h"
 #include <cassert>
+#include "WorldTransform.h"
 
 void Player::Initialize(Model* model, uint32_t textureHundle) {
 	assert(model);
@@ -29,12 +30,7 @@ void Player::Updete() {
 		move.y -= kCharacterSpeed;
 	}
 
-	worldTransform_.translation_.x += move.x;
-	worldTransform_.translation_.y += move.y;
-	worldTransform_.translation_.z += move.z;
-
-	worldTransform_.matWorld_ = MakeAffineMatrix(
-	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
+	worldTransform_.UpdateMatrix();
 
 	const float kMoveLimitX = 10.0f;
 	const float kMoveLimitY = 10.0f;
@@ -43,6 +39,10 @@ void Player::Updete() {
 	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
 	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
 	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
+
+	worldTransform_.translation_.x += move.x;
+	worldTransform_.translation_.y += move.y;
+	worldTransform_.translation_.z += move.z;
 
 	// 行列転送
 	worldTransform_.TransferMatrix();
@@ -63,9 +63,31 @@ void Player::Updete() {
 	} else if (input_->PushKey(DIK_D)) {
 		worldTransform_.rotation_.y += kRotSpeed;
 	}
+
+	//攻撃処理
+	Attack();
+
+	//弾更新
+	if (bullet_) {
+		bullet_->Update();
+	}
 }
 
 void Player::Draw(ViewProjection& viewProjection) {
 
 	model_->Draw(worldTransform_, viewProjection, textureHundle_);
+	//弾描画
+	if (bullet_) {
+		bullet_->Draw(viewProjection);
+	}
+}
+
+void Player::Attack() {
+	if (input_->PushKey(DIK_SPACE)) {
+		//弾を生成し初期化
+		PlayerBullet* newBullet = new PlayerBullet();
+		newBullet->Initialize(model_,worldTransform_.translation_);
+		//弾を登録する
+		bullet_ = newBullet;
+	}
 }
