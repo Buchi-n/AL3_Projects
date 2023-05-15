@@ -54,6 +54,15 @@ void Player::Updete() {
 	ImGui::SliderFloat3("position", sliderValue, -20.0f, 20.0f);
 	worldTransform_.translation_ = {sliderValue[0], sliderValue[1], sliderValue[2]};
 	ImGui::End();
+
+	//旋回
+	const float kRotSpeed = 0.02f;
+	//押した方向で移動ベクトルを変更
+	if (input_->PushKey(DIK_A)) {
+		worldTransform_.rotation_.y -= kRotSpeed;
+	} else if (input_->PushKey(DIK_D)) {
+		worldTransform_.rotation_.y += kRotSpeed;
+	}
 }
 
 void Player::Draw(ViewProjection& viewProjection) {
