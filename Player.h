@@ -4,12 +4,17 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include "PlayerBullet.h"
+#include <list>
 
 /// <summary>
 /// プレイヤークラス
 /// </summary>
 class Player {
 public:
+	/// <summary>
+	///デストラクタ
+	/// </summary>
+	~Player();
 	/// <summary>
 	/// 初期化処理
 	/// </summary>
@@ -35,5 +40,6 @@ private:
 	Model* model_ = nullptr;
 	uint32_t textureHundle_ = 0u;
 	Input* input_ = nullptr;
-	PlayerBullet* bullet_ = nullptr;
+	//弾
+	std::list<PlayerBullet*> bullets_;
 };

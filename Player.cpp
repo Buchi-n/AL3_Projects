@@ -4,6 +4,13 @@
 #include <cassert>
 #include "WorldTransform.h"
 
+Player::~Player() {
+	//bullet_の開放
+	for (PlayerBullet* bullet : bullets_) {
+		delete bullet;
+	}
+}
+
 void Player::Initialize(Model* model, uint32_t textureHundle) {
 	assert(model);
 	model_ = model;
@@ -68,8 +75,8 @@ void Player::Updete() {
 	Attack();
 
 	//弾更新
-	if (bullet_) {
-		bullet_->Update();
+	for (PlayerBullet* bullet : bullets_) {
+		bullet->Update();
 	}
 }
 
@@ -77,17 +84,23 @@ void Player::Draw(ViewProjection& viewProjection) {
 
 	model_->Draw(worldTransform_, viewProjection, textureHundle_);
 	//弾描画
-	if (bullet_) {
-		bullet_->Draw(viewProjection);
+	for (PlayerBullet* bullet : bullets_) {
+		bullet->Draw(viewProjection);
 	}
 }
 
 void Player::Attack() {
-	if (input_->PushKey(DIK_SPACE)) {
+	if (input_->TriggerKey(DIK_SPACE)) {
+		////弾があれば開放する
+		//if (bullet_) {
+		//	delete bullet_;
+		//	bullet_ = nullptr;
+		//}
+		
 		//弾を生成し初期化
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(model_,worldTransform_.translation_);
 		//弾を登録する
-		bullet_ = newBullet;
+		bullets_.push_back(newBullet);
 	}
 }
