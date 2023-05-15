@@ -17,7 +17,10 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position) {
 
 void PlayerBullet::Update() {
 	//ワールドトランスフォーム更新
-	WorldTransform::UpdateMatrix()
+	//worldTransform_.matWorld_ = WorldTransform::UpdateMatrix();
+
+
+
 }
 
 void PlayerBullet::Draw(const ViewProjection& viewProjection) { 
