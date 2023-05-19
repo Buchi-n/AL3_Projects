@@ -5,6 +5,7 @@
 #include "WorldTransform.h"
 #include "PlayerBullet.h"
 #include <list>
+#include "MathUtilitie.h"
 
 /// <summary>
 /// プレイヤークラス
