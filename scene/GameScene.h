@@ -65,7 +65,7 @@ private: // メンバ変数
 	Model* enemyModel_ = nullptr;
 	WorldTransform enemyWorldTransform_;
 	ViewProjection enemyViewProjection_;
-	const float kEnemySpeedY = 0.01f;
+	const float kEnemySpeedY = 0.003f;
 	const float kEnemySpeedZ = -0.1f;
 
 	Enemy* enemy_ = nullptr;
