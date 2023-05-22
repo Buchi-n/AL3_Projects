@@ -36,6 +36,7 @@ void GameScene::Initialize() {
 
 	enemy_ = new Enemy();
 	Vector3 enemyVelocity(0, kEnemySpeedY,kEnemySpeedZ);
+	enemyWorldTransform_.translation_.z = 50.0f;
 	enemy_->Initialize(enemyModel_, enemyWorldTransform_.translation_, enemyVelocity);
 
 	debugCamera_ = new DebugCamera(WinApp::kWindowWidth, WinApp::kWindowHeight);

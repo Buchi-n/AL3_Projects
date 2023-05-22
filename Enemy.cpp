@@ -18,11 +18,26 @@ void Enemy::Initialize(Model* model, const Vector3& position, const Vector3& vel
 
 void Enemy::Update() {
 
-	//座標を移動させる(1フレーム分の移動量を足しこむ)
-	worldTransform_.translation_.x += velocity_.x;
-	worldTransform_.translation_.y += velocity_.y;
-	worldTransform_.translation_.z += velocity_.z;
-
+	//フェーズ
+	switch (phase_) { 
+	case Phase::Approch:
+	default:
+		//移動(ベクトルを加算)
+		worldTransform_.translation_.x += velocity_.x;
+		worldTransform_.translation_.y += velocity_.y;
+		worldTransform_.translation_.z += velocity_.z;	
+		//既定の位置に到達したら離脱
+		if (worldTransform_.translation_.z < 0.0f) {
+			phase_ = Phase::Leave;
+		}
+		break;
+	case Phase::Leave:
+		//移動(ベクトルを加算)
+		worldTransform_.translation_.x += -velocity_.x;
+		worldTransform_.translation_.y += velocity_.y;
+		worldTransform_.translation_.z += -velocity_.z;	
+		break;
+	}
 	//ワールドトランスフォーム更新
 	worldTransform_.UpdateMatrix();
 

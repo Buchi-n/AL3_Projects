@@ -34,4 +34,11 @@ private:
 	uint32_t textureHandle_ = 0u;
 	//速度
 	Vector3 velocity_;
+
+	//フェーズ
+	enum class Phase {
+		Approch, //接近
+		Leave, //離脱
+	};
+	Phase phase_ = Phase::Approch;
 };
