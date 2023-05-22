@@ -6,8 +6,10 @@
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
-	delete model_;
+	delete playerModel_;
 	delete player_;
+	delete enemyModel_;
+	delete enemy_;
 	delete debugCamera_;
 }
 
@@ -16,23 +18,35 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
-
-	textureHandle_ = TextureManager::Load("sample.png");
-	model_ = Model::Create();
-	worldTransform_.Initialize();
-	viewProjection_.Initialize();
+	
+	//プレイヤー初期化処理
+	playerTextureHandle_ = TextureManager::Load("sample.png");
+	playerModel_ = Model::Create();
+	playerWorldTransform_.Initialize();
+	playerViewProjection_.Initialize();
 
 	player_ = new Player();
-	player_->Initialize(model_, textureHandle_);
+	player_->Initialize(playerModel_, playerTextureHandle_);
+
+	//敵初期化処理
+	enemyTextureHandle_ = TextureManager::Load("uvChecker.png");
+	enemyModel_ = Model::Create();
+	enemyWorldTransform_.Initialize();
+	enemyViewProjection_.Initialize();
+
+	enemy_ = new Enemy();
+	Vector3 enemyVelocity(0, kEnemySpeedY,kEnemySpeedZ);
+	enemy_->Initialize(enemyModel_, enemyWorldTransform_.translation_, enemyVelocity);
 
 	debugCamera_ = new DebugCamera(WinApp::kWindowWidth, WinApp::kWindowHeight);
 
 	AxisIndicator::GetInstance()->SetVisible(true);
-	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&playerViewProjection_);
 }
 
 void GameScene::Update() {
 	player_->Updete();
+	enemy_->Update();
 
 #ifdef _DEBUG
 	if (input_->TriggerKey(DIK_SPACE)) {
@@ -43,11 +57,11 @@ void GameScene::Update() {
 
 	if (isDebugCameraActive_) {
 		debugCamera_->Update();
-		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
-		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
-		viewProjection_.TransferMatrix();
+		playerViewProjection_.matView = debugCamera_->GetViewProjection().matView;
+		playerViewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+		playerViewProjection_.TransferMatrix();
 	} else {
-		viewProjection_.UpdateMatrix();
+		playerViewProjection_.UpdateMatrix();
 	}
 }
 
@@ -78,8 +92,8 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 	// model_->Draw(worldTransform_, viewProjection_, textureHandle_);
-	player_->Draw(viewProjection_);
-
+	player_->Draw(playerViewProjection_);
+	enemy_->Draw(enemyViewProjection_);
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
