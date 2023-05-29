@@ -87,21 +87,21 @@ void Enemy::Draw(const ViewProjection& viewProjection) {
 
 void Enemy::Fire() {
 	// 弾速
-	const float kBulletSpeed = 0.5f;
-	Vector3 playerWPos, enemyWPos;
+	const float kBulletSpeed = -0.05f;
+	Vector3 move;
 	//自キャラのワールド座標取得
-	playerWPos = player_->GetWorldPosition();
+	player_->GetWorldPosition();
 	// 敵キャラのワールド座標取得
-	enemyWPos = GetWorldPosition();
+	GetWorldPosition();
 	// 敵→自の差分ベクトル
-	playerWPos.x - enemyWPos.x;
-	playerWPos.y - enemyWPos.y;
-	playerWPos.z - enemyWPos.z;
-	// 正規化
+	move.x = GetWorldPosition().x - player_->GetWorldPosition().x;
+	move.y = GetWorldPosition().y - player_->GetWorldPosition().y;
+	move.z = GetWorldPosition().z - player_->GetWorldPosition().z;
 	
+	//正規化
+	Normalize(move);
 	// ベクトルの長さを早さに合わせる
-
-	Vector3 velocity(0, 0, -kBulletSpeed);
+	Vector3 velocity(move.x*kBulletSpeed, move.y*kBulletSpeed, move.z*kBulletSpeed);
 	// 速度ベクトルを敵の向きに合わせて回転させる
 	velocity = TransformNormal(velocity, worldTransform_.matWorld_);
 	// 弾を生成し初期化

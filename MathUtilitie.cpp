@@ -9,3 +9,13 @@ Vector3 TransformNormal(const Vector3& v, const Matrix4x4& m) {
 
 	return result;
 }
+
+
+	Vector3 Normalize(const Vector3& v) {
+	Vector3 result;
+	float VectorLength = sqrtf(v.x * v.x + v.y * v.y + v.z * v.z);
+	result.x = v.x / VectorLength;
+	result.y = v.y / VectorLength;
+	result.z = v.z / VectorLength;
+	return result;
+}
