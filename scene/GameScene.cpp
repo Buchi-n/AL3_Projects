@@ -40,6 +40,9 @@ void GameScene::Initialize() {
 	enemyWorldTransform_.translation_.z = 40.0f;
 	enemy_->Initialize(enemyModel_, enemyWorldTransform_.translation_, enemyVelocity);
 
+	//敵キャラに自キャラのアドレスを渡す
+	enemy_->SetPlayer(player_);
+
 	debugCamera_ = new DebugCamera(WinApp::kWindowWidth, WinApp::kWindowHeight);
 
 	AxisIndicator::GetInstance()->SetVisible(true);

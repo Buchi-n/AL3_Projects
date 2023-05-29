@@ -6,6 +6,8 @@
 #include "EnemyBullet.h"
 #include <list>
 #include "MathUtilitie.h"
+//自機クラスの前方宣言
+class Player;
 
     /// <summary>
 /// 敵
@@ -40,6 +42,17 @@ public:
 	/// </summary>
 	void Fire();
 
+	/// <summary>
+	/// プレイヤーｹﾞｯﾀｰ
+	/// </summary>
+	/// <param name="player"></param>
+	void SetPlayer(Player* player) { player_ = player; }
+	/// <summary>
+	/// ワールド座標を取得
+	/// </summary>
+	/// <returns></returns>
+	Vector3 GetWorldPosition();
+
 	private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
@@ -57,4 +70,7 @@ public:
 	// 弾
 	std::list<EnemyBullet*> bullets_;
 	uint32_t frame;
+
+	//自キャラ
+	Player* player_ = nullptr;
 };

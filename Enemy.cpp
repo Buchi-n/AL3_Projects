@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include <assert.h>
+#include "Player.h"
 
 Enemy::~Enemy() {
 	//bullet_の開放
@@ -87,6 +88,19 @@ void Enemy::Draw(const ViewProjection& viewProjection) {
 void Enemy::Fire() {
 	// 弾速
 	const float kBulletSpeed = 0.5f;
+	Vector3 playerWPos, enemyWPos;
+	//自キャラのワールド座標取得
+	playerWPos = player_->GetWorldPosition();
+	// 敵キャラのワールド座標取得
+	enemyWPos = GetWorldPosition();
+	// 敵→自の差分ベクトル
+	playerWPos.x - enemyWPos.x;
+	playerWPos.y - enemyWPos.y;
+	playerWPos.z - enemyWPos.z;
+	// 正規化
+	
+	// ベクトルの長さを早さに合わせる
+
 	Vector3 velocity(0, 0, -kBulletSpeed);
 	// 速度ベクトルを敵の向きに合わせて回転させる
 	velocity = TransformNormal(velocity, worldTransform_.matWorld_);
@@ -95,4 +109,15 @@ void Enemy::Fire() {
 	newBullet->Initialize(model_, worldTransform_.translation_, velocity);
 	// 弾を登録する
 	bullets_.push_back(newBullet);
+}
+
+Vector3 Enemy::GetWorldPosition() {
+	//ワールド座標を入れる変数
+	Vector3 worldPos;
+	//ワールド座標の平行移動成分を取得(ワールド座標)
+	worldPos.x = worldTransform_.translation_.x;
+	worldPos.y = worldTransform_.translation_.y;
+	worldPos.z = worldTransform_.translation_.z;
+
+	return worldPos;
 }
