@@ -49,8 +49,8 @@ void Player::Updete() {
 
 	worldTransform_.UpdateMatrix();
 
-	const float kMoveLimitX = 10.0f;
-	const float kMoveLimitY = 10.0f;
+	const float kMoveLimitX = 20.0f;
+	const float kMoveLimitY = 20.0f;
 
 	worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
 	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);

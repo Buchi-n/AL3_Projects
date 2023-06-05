@@ -38,6 +38,18 @@ public:
 	/// </summary>
 	void OnCollision();
 
+	/// <summary>
+	/// ワールド座標を取得
+	/// </summary>
+	/// <returns></returns>
+	Vector3 GetWorldPosition();
+
+	/// <summary>
+	/// ｹﾞｯﾀｰ(半径)
+	/// </summary>
+	/// <returns>半径</returns>
+	float GetRad() { return rad_; }
+
 	private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
@@ -50,4 +62,7 @@ public:
 	int32_t deathTimer_ = kLifeTime;
 	//デスフラグ
 	bool isDead_ = false;
+
+	// 半径
+	float rad_ = 1.0f;
 };

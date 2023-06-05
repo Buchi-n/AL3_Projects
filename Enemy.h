@@ -61,6 +61,12 @@ public:
 	// 弾リストを取得
 	const std::list<EnemyBullet*>& GetBullets() { return bullets_; } 
 
+	/// <summary>
+	/// ｹﾞｯﾀｰ(半径)
+	/// </summary>
+	/// <returns>半径</returns>
+	float GetRad() { return rad_; }
+
 	private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
@@ -81,4 +87,7 @@ public:
 
 	//自キャラ
 	Player* player_ = nullptr;
+
+	// 半径
+	float rad_ = 1.0f;
 };
