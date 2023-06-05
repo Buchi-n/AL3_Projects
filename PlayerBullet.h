@@ -33,6 +33,11 @@ public:
 	/// <returns></returns>
 	bool IsDead() const { return isDead_; }
 
+	/// <summary>
+	/// 衝突を検出したら呼び出されるコールバック関数
+	/// </summary>
+	void OnCollision();
+
 	private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
