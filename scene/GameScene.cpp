@@ -47,9 +47,9 @@ void GameScene::Initialize() {
 
 	debugCamera_ = new DebugCamera(WinApp::kWindowWidth, WinApp::kWindowHeight);
 
-	skydome_ = new Skedome();
-	skydome_->Initialize();
 	modelSkydome_ = Model::CreateFromOBJ("skydome", true);
+	skydome_ = new Skedome();
+	skydome_->Initialize(modelSkydome_);
 	AxisIndicator::GetInstance()->SetVisible(true);
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&playerViewProjection_);
 }
@@ -89,7 +89,6 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに背景スプライトの描画処理を追加できる
 	/// </summary>
-	skydome_->Draw();
 	// スプライト描画後処理
 	Sprite::PostDraw();
 	// 深度バッファクリア
@@ -104,6 +103,7 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 	// model_->Draw(worldTransform_, viewProjection_, textureHandle_);
+	skydome_->Draw(playerViewProjection_);
 	player_->Draw(playerViewProjection_);
 	enemy_->Draw(enemyViewProjection_);
 	// 3Dオブジェクト描画後処理
