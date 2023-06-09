@@ -10,6 +10,8 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "Skedome.h"
+
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -65,6 +67,10 @@ private: // メンバ変数
 	ViewProjection playerViewProjection_;
 
 	Player* player_ = nullptr;
+
+	//3Dモデル:天球
+	Model* modelSkydome_ = nullptr;
+	Skedome* skydome_ = nullptr;
 
 	//敵処理
 	Model* enemyModel_ = nullptr;
