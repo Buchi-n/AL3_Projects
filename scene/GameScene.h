@@ -64,7 +64,7 @@ private: // メンバ変数
 	//プレイヤー処理
 	Model* playerModel_ = nullptr;
 	WorldTransform playerWorldTransform_;
-	ViewProjection playerViewProjection_;
+	ViewProjection viewProjection_;
 
 	Player* player_ = nullptr;
 
@@ -75,7 +75,6 @@ private: // メンバ変数
 	//敵処理
 	Model* enemyModel_ = nullptr;
 	WorldTransform enemyWorldTransform_;
-	ViewProjection enemyViewProjection_;
 	const float kEnemySpeedY = 0.003f;
 	const float kEnemySpeedZ = -0.1f;
 

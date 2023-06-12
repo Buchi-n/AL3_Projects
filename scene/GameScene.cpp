@@ -25,7 +25,7 @@ void GameScene::Initialize() {
 	playerTextureHandle_ = TextureManager::Load("sample.png");
 	playerModel_ = Model::Create();
 	playerWorldTransform_.Initialize();
-	playerViewProjection_.Initialize();
+	viewProjection_.Initialize();
 
 	player_ = new Player();
 	player_->Initialize(playerModel_, playerTextureHandle_);
@@ -34,7 +34,6 @@ void GameScene::Initialize() {
 	enemyTextureHandle_ = TextureManager::Load("uvChecker.png");
 	enemyModel_ = Model::Create();
 	enemyWorldTransform_.Initialize();
-	enemyViewProjection_.Initialize();
 
 	enemy_ = new Enemy();
 	Vector3 enemyVelocity(0, kEnemySpeedY,kEnemySpeedZ);
@@ -51,17 +50,18 @@ void GameScene::Initialize() {
 	skydome_ = new Skedome();
 	skydome_->Initialize(modelSkydome_);
 	AxisIndicator::GetInstance()->SetVisible(true);
-	AxisIndicator::GetInstance()->SetTargetViewProjection(&playerViewProjection_);
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 }
 
 void GameScene::Update() {
 	player_->Updete();
 	enemy_->Update();
 	skydome_->Update();
+	debugCamera_->Update();
 	CheckAllCollisions();
 
 #ifdef _DEBUG
-	if (input_->TriggerKey(DIK_SPACE)) {
+	if (input_->TriggerKey(DIK_B)) {
 		isDebugCameraActive_ = true;
 	}
 
@@ -69,11 +69,11 @@ void GameScene::Update() {
 
 	if (isDebugCameraActive_) {
 		debugCamera_->Update();
-		playerViewProjection_.matView = debugCamera_->GetViewProjection().matView;
-		playerViewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
-		playerViewProjection_.TransferMatrix();
+		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+		viewProjection_.TransferMatrix();
 	} else {
-		playerViewProjection_.UpdateMatrix();
+		viewProjection_.UpdateMatrix();
 	}
 }
 
@@ -103,9 +103,9 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 	// model_->Draw(worldTransform_, viewProjection_, textureHandle_);
-	skydome_->Draw(playerViewProjection_);
-	player_->Draw(playerViewProjection_);
-	enemy_->Draw(enemyViewProjection_);
+	skydome_->Draw(viewProjection_);
+	player_->Draw(viewProjection_);
+	enemy_->Draw(viewProjection_);
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
