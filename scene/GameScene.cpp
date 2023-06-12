@@ -41,6 +41,10 @@ void GameScene::Initialize() {
 	enemyWorldTransform_.translation_.z = 40.0f;
 	enemy_->Initialize(enemyModel_, enemyWorldTransform_.translation_, enemyVelocity);
 
+	//レールカメラ
+	railCamera_ = new RailCamera();
+	railCamera_->Initialize(railcameraWorldTransform_);
+
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);
 
@@ -57,6 +61,7 @@ void GameScene::Update() {
 	player_->Updete();
 	enemy_->Update();
 	skydome_->Update();
+	railCamera_->Update();
 	debugCamera_->Update();
 	CheckAllCollisions();
 

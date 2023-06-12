@@ -6,6 +6,7 @@
 #include "Model.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "RailCamera.h"
 #include "SafeDelete.h"
 #include "Sprite.h"
 #include "ViewProjection.h"
@@ -79,6 +80,11 @@ private: // メンバ変数
 	const float kEnemySpeedZ = -0.1f;
 
 	Enemy* enemy_ = nullptr;
+
+	//レールカメラ
+	WorldTransform railcameraWorldTransform_;
+	ViewProjection rCameraViewProjection_;
+	RailCamera* railCamera_ = nullptr;
 
 	bool isDebugCameraActive_ = false;
 	DebugCamera* debugCamera_ = nullptr;
