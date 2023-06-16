@@ -43,7 +43,9 @@ void GameScene::Initialize() {
 
 	//レールカメラ
 	railCamera_ = new RailCamera();
-	railCamera_->Initialize(railcameraWorldTransform_);
+	railcameraWorldTransform_.Initialize();
+	rCameraRad_ = {0, 0, 0};
+	railCamera_->Initialize(railcameraWorldTransform_,rCameraRad_);
 
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);
@@ -78,7 +80,9 @@ void GameScene::Update() {
 		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
 		viewProjection_.TransferMatrix();
 	} else {
-		viewProjection_.UpdateMatrix();
+		viewProjection_.matView = railCamera_->GetViewProjection().matView;
+		viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
+		viewProjection_.TransferMatrix();
 	}
 }
 
