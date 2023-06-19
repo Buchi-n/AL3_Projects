@@ -4,10 +4,10 @@
 
 Enemy::~Enemy() {
 	//bullet_の開放
-	for (EnemyBullet* bullet : bullets_)
-	{
-		delete bullet;
-	}
+	//for (EnemyBullet* bullet : bullets_)
+	//{
+	//	delete bullet;
+	//}
 }
 
 void Enemy::Initialize(Model* model, const Vector3& position, const Vector3& velocity) {
@@ -30,14 +30,14 @@ void Enemy::Initialize(Model* model, const Vector3& position, const Vector3& vel
 
 void Enemy::Update() {
 	//デスフラグの立った弾を削除
-	bullets_.remove_if([](EnemyBullet* bullet) {
-		if (bullet->IsDead())
-		{
-			delete bullet;
-			return true;
-		}
-		return false;
-	});
+	//bullets_.remove_if([](EnemyBullet* bullet) {
+	//	if (bullet->IsDead())
+	//	{
+	//		delete bullet;
+	//		return true;
+	//	}
+	//	return false;
+	//});
 
 	//フェーズ
 	switch (phase_) { 
@@ -63,17 +63,17 @@ void Enemy::Update() {
 	worldTransform_.UpdateMatrix();
 
 	//弾更新
-	for (EnemyBullet* bullet : bullets_) {
-		bullet->Update();
-	}
+	//for (EnemyBullet* bullet : bullets_) {
+	//	bullet->Update();
+	//}
 }
 
 void Enemy::Draw(const ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 	// 弾描画
-	for (EnemyBullet* bullet : bullets_) {
-		bullet->Draw(viewProjection);
-	}
+	//for (EnemyBullet* bullet : bullets_) {
+	//	bullet->Draw(viewProjection);
+	//}
 
 	frame++;
 	if (frame % 60 == 0) {
@@ -108,7 +108,7 @@ void Enemy::Fire() {
 	EnemyBullet* newBullet = new EnemyBullet;
 	newBullet->Initialize(model_, worldTransform_.translation_, velocity);
 	// 弾を登録する
-	bullets_.push_back(newBullet);
+	//bullets_.push_back(newBullet);
 }
 
 Vector3 Enemy::GetWorldPosition() {

@@ -6,6 +6,9 @@
 #include "EnemyBullet.h"
 #include <list>
 #include "MathUtilitie.h"
+//ゲームシーンの前方宣言
+class GameScene;
+
 //自機クラスの前方宣言
 class Player;
 
@@ -59,13 +62,15 @@ public:
 	void OnCollision();
 
 	// 弾リストを取得
-	const std::list<EnemyBullet*>& GetBullets() { return bullets_; } 
+	//const std::list<EnemyBullet*>& GetBullets() { return bullets_; } 
 
 	/// <summary>
 	/// ｹﾞｯﾀｰ(半径)
 	/// </summary>
 	/// <returns>半径</returns>
 	float GetRad() { return rad_; }
+
+	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
 
 	private:
 	WorldTransform worldTransform_;
@@ -82,7 +87,7 @@ public:
 	Phase phase_ = Phase::Approch;
 
 	// 弾
-	std::list<EnemyBullet*> bullets_;
+	//std::list<EnemyBullet*> bullets_;
 	uint32_t frame;
 
 	//自キャラ
@@ -90,4 +95,7 @@ public:
 
 	// 半径
 	float rad_ = 1.0f;
+	
+	//ゲームシーン
+	GameScene* gameScene_ = nullptr;
 };

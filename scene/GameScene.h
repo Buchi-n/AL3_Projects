@@ -49,6 +49,12 @@ public: // メンバ関数
 	/// </summary>
 	void CheckAllCollisions();
 
+	/// <summary>
+	/// 敵弾を追加する
+	/// </summary>
+	/// <param name="enemyBullet">敵弾</param>
+	void AddEnemyBullet(EnemyBullet* enemyBullet);
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -80,6 +86,9 @@ private: // メンバ変数
 	const float kEnemySpeedZ = -0.1f;
 
 	Enemy* enemy_ = nullptr;
+
+	//敵弾
+	std::list<EnemyBullet*> enemyBullets_;
 
 	//レールカメラ
 	WorldTransform railcameraWorldTransform_;
