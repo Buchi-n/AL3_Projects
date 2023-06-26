@@ -28,7 +28,8 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();
 
 	player_ = new Player();
-	player_->Initialize(playerModel_, playerTextureHandle_);
+	Vector3 playerPosition(0, 0, 20);
+	player_->Initialize(playerModel_, playerTextureHandle_,playerPosition);
 
 	//敵初期化処理
 	enemyTextureHandle_ = TextureManager::Load("uvChecker.png");
@@ -47,6 +48,9 @@ void GameScene::Initialize() {
 	rCameraRad_ = {0, 0, 0};
 	railCamera_->Initialize(railcameraWorldTransform_,rCameraRad_);
 
+	//自キャラとレールカメラの親子関係を結ぶ
+	player_->SetParent(&railCamera_->GetWorldTransform());
+	
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);
 

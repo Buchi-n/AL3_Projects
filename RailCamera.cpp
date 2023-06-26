@@ -13,10 +13,11 @@ void RailCamera::Initialize(WorldTransform worldTransform,Vector3 radian) {
 }
 
 void RailCamera::Update() {
+	Vector3 move = {0.0f, 0.0f, 0.1f};
 	//ワールドトランスフォームの座標の数値を更新(移動)
-	worldTransform_.translation_.x += 0;
-	worldTransform_.translation_.y += 0;
-	worldTransform_.translation_.z += 1;
+	worldTransform_.translation_.x += move.x;
+	worldTransform_.translation_.y += move.y;
+	worldTransform_.translation_.z += move.z;
 	//ワールドトランスフォームの角度の数値を更新(回転)
 	worldTransform_.rotation_.x += 0;
 	worldTransform_.rotation_.y += 0;

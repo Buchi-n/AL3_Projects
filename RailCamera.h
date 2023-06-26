@@ -1,7 +1,7 @@
 #pragma once
-#include "WorldTransform.h"
-#include "ViewProjection.h"
 #include "MathUtilitie.h"
+#include "ViewProjection.h"
+#include "WorldTransform.h"
 
 /// <summary>
 /// レールカメラ
@@ -11,18 +11,21 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(WorldTransform worldTransform,Vector3 radian);
-	
+	void Initialize(WorldTransform worldTransform, Vector3 radian);
+
 	/// <summary>
 	/// 更新
 	/// </summary>
 	void Update();
 
-	ViewProjection GetViewProjection(){ return viewProjection_; }
+	ViewProjection &GetViewProjection() { return viewProjection_; }
 
-private:
-	//ワールド変換データ
+	WorldTransform &GetWorldTransform() { return worldTransform_; }
+
+	private:
+	// ワールド変換データ
 	WorldTransform worldTransform_;
-	//ビュープロジェクション
+
+	// ビュープロジェクション
 	ViewProjection viewProjection_;
 };

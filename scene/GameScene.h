@@ -83,7 +83,6 @@ private: // メンバ変数
 
 	//レールカメラ
 	WorldTransform railcameraWorldTransform_;
-	ViewProjection rCameraViewProjection_;
 	Vector3 rCameraRad_;
 	RailCamera* railCamera_ = nullptr;
 

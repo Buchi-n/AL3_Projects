@@ -21,7 +21,7 @@ public:
 	/// </summary>
 	/// <param name="model">モデル</param>
 	/// <param name="textureHundle">テクスチャ</param>
-	void Initialize(Model* model, uint32_t textureHundle);
+	void Initialize(Model* model, uint32_t textureHundle,Vector3 playerPos);
 	/// <summary>
 	/// 更新処理
 	/// </summary>
@@ -54,6 +54,12 @@ public:
 	/// </summary>
 	/// <returns>半径</returns>
 	float GetRad() { return rad_; }
+
+	/// <summary>
+	/// 親となるワールドトランスフォームをセット
+	/// </summary>
+	/// <param name="parent">親となるワールドトランスフォーム</param>
+	void SetParent(const WorldTransform* parent);
 
 private:
 	WorldTransform worldTransform_;
