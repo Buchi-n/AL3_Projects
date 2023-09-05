@@ -4,16 +4,29 @@
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() {
+	// 各種 delete を記載
+	delete player_;
+}
 
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+
+	// テクスチャロード（用途ごとのcpp > Initialize にも記載）
+	TextureManager::Load("uvChecker.png"); // プレイヤー
+
+	// プレイヤー初期化
+	player_ = new Player();
+	player_->initialize({10, 10});
 }
 
-void GameScene::Update() {}
+void GameScene::Update() {
+	// プレイヤー更新
+	player_->Update();
+}
 
 void GameScene::Draw() {
 
@@ -53,6 +66,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
+	player_->Draw();
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
