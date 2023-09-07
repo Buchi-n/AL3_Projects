@@ -12,3 +12,9 @@ struct Status {
 	// 生存フラグ
 	int isAlive_ = true;
 };
+// ゲームシーン名称
+enum class Scene {
+	Title,
+	GamePlay,
+	Result,
+};

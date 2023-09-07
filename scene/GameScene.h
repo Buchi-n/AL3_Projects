@@ -2,6 +2,7 @@
 
 #include "Audio.h"
 #include "DirectXCommon.h"
+#include "Enums.h"
 #include "Input.h"
 #include "Model.h"
 #include "Player.h"
@@ -55,4 +56,8 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
+	// ゲームシーン
+	Scene scene_ = Scene::Title;
+	// スプライトデータ
+	Sprite* spriteBG_[3];
 };

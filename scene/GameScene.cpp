@@ -15,18 +15,35 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
+	// プレイヤーテクスチャ読み込み（gameScene.cpp > Initialize にも記載）
+	uint32_t textureBG[3] = {
+	    TextureManager::Load("bg/title.png"),
+	    TextureManager::Load("bg/gamePlay.png"),
+	    TextureManager::Load("bg/result.png"),
+	};
+
 	// テクスチャロード（用途ごとのcpp > Initialize にも記載）
-	TextureManager::Load("uvChecker.png"); // プレイヤー
+	TextureManager::Load("bg/title.png");    // タイトル
+	TextureManager::Load("bg/gamePlay.png"); // ゲームプレイ
+	TextureManager::Load("bg/result.png");   // リザルト
+	TextureManager::Load("player.png");      // プレイヤー
 	TextureManager::Load("num/0.png"), TextureManager::Load("num/1.png");
 	TextureManager::Load("num/2.png"), TextureManager::Load("num/3.png");
 	TextureManager::Load("num/4.png"), TextureManager::Load("num/5.png");
 	TextureManager::Load("num/6.png"), TextureManager::Load("num/7.png");
 	TextureManager::Load("num/8.png"), TextureManager::Load("num/9.png"); // 数字
 
+	for (int i = 0; i < 3; i++) {
+		// スプライトデータ null 代入
+		spriteBG_[i] = nullptr;
+		// スプライトデータ初期化
+		spriteBG_[i] = Sprite::Create(textureBG[i], {0, 0}, {1, 1, 1, 1}, {0.0f, 0.0f});
+	}
+
 	// プレイヤー初期化
 	player_ = new Player();
 	// 初期座標を入力
-	player_->initialize({10, 10});
+	player_->initialize({220, 700});
 	// スコア初期化
 	score_ = new Score();
 	score_->Initialize();
@@ -35,10 +52,45 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
-	// プレイヤー更新
-	player_->Update();
-	// スコア更新
-	score_->AddScore(addScore_);
+
+	// シーン処理
+	switch (scene_) {
+	// タイトル
+	case Scene::Title:
+		// エンターキー押下
+		if (input_->TriggerKey(DIK_RETURN)) {
+			// シーン遷移 ゲームプレイ
+			scene_ = Scene::GamePlay;
+			// スコア描画位置変更
+			score_->SetPos({360, 100});
+		}
+		break;
+	// ゲームプレイ
+	case Scene::GamePlay:
+		// プレイヤー更新
+		player_->Update();
+		// スコア更新
+		score_->AddScore(addScore_);
+		// 　エンターキー押下（デバッグ用）
+		if (input_->TriggerKey(DIK_RETURN)) {
+			// シーン遷移 リザルト
+			scene_ = Scene::Result;
+			// スコア描画位置変更 < 本実装時は[シーン遷移 リザルト と同じ if 文内に入れる]
+			score_->SetPos({360, 400});
+		}
+
+		break;
+		// リザルト
+	case Scene::Result:
+		// エンターキー押下
+		if (input_->TriggerKey(DIK_RETURN)) {
+			// シーン遷移 タイトル
+			scene_ = Scene::Title;
+			GameScene::Initialize();
+		}
+
+		break;
+	}
 }
 
 void GameScene::Draw() {
@@ -53,6 +105,22 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに背景スプライトの描画処理を追加できる
 	/// </summary>
+
+	// シーン処理
+	switch (scene_) {
+	// タイトル
+	case Scene::Title:
+		spriteBG_[0]->Draw();
+		break;
+	// ゲームプレイ
+	case Scene::GamePlay:
+		spriteBG_[1]->Draw();
+		break;
+		// リザルト
+	case Scene::Result:
+		spriteBG_[2]->Draw();
+		break;
+	}
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
@@ -79,8 +147,29 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
-	player_->Draw();
-	score_->Draw(score_->GetScore());
+
+	// シーン処理
+	switch (scene_) {
+	// タイトル
+	case Scene::Title:
+
+		break;
+	// ゲームプレイ
+	case Scene::GamePlay:
+		// プレイヤー描画
+		player_->Draw();
+		// スコア描画
+		score_->Draw(score_->GetScore());
+
+		break;
+		// リザルト
+	case Scene::Result:
+		// スコア描画
+		score_->Draw(score_->GetScore());
+
+		break;
+	}
+
 	// スプライト描画後処理
 	Sprite::PostDraw();
 
