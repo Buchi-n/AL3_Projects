@@ -6,6 +6,7 @@
 #include "Model.h"
 #include "Player.h"
 #include "SafeDelete.h"
+#include "Score.h"
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
@@ -47,7 +48,10 @@ private: // メンバ変数
 	Audio* audio_ = nullptr;
 	// プレイヤー用
 	Player* player_ = nullptr;
-
+	// スコア用
+	Score* score_ = nullptr;
+	// スコア増加量
+	int addScore_ = 3;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
