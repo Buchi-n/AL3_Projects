@@ -7,6 +7,8 @@ GameScene::GameScene() {}
 GameScene::~GameScene() {
 	// 各種 delete を記載
 	delete player_;
+	delete score_;
+	delete object_;
 }
 
 void GameScene::Initialize() {
@@ -49,6 +51,9 @@ void GameScene::Initialize() {
 	score_->Initialize();
 	// 初期座標を入力（アンカー右端）
 	score_->SetPos({360, 100});
+	//オブジェクト初期化
+	object_ = new Object();
+	object_->Initialize();
 }
 
 void GameScene::Update() {
@@ -71,6 +76,9 @@ void GameScene::Update() {
 		player_->Update();
 		// スコア更新
 		score_->AddScore(addScore_);
+		//オブジェクト更新
+		object_->Update();
+
 		// 　エンターキー押下（デバッグ用）
 		if (input_->TriggerKey(DIK_RETURN)) {
 			// シーン遷移 リザルト
@@ -158,6 +166,8 @@ void GameScene::Draw() {
 	case Scene::GamePlay:
 		// プレイヤー描画
 		player_->Draw();
+		//オブジェクト描画
+		object_->Draw();
 		// スコア描画
 		score_->Draw(score_->GetScore());
 

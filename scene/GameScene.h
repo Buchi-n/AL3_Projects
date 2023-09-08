@@ -11,6 +11,7 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "Object.h"
 
 /// <summary>
 /// ゲームシーン
@@ -53,6 +54,8 @@ private: // メンバ変数
 	Score* score_ = nullptr;
 	// スコア増加量
 	int addScore_ = 3;
+	//オブジェクト
+	Object* object_ = nullptr;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
