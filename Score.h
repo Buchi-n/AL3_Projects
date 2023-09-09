@@ -20,6 +20,8 @@ public:
 	/// <param name="score">描画するスコア</param>
 	void Draw(int score);
 
+	void DrawPVal(int val);
+
 	/// <summary>
 	/// スコア数値セッター
 	/// </summary>
@@ -44,9 +46,15 @@ public:
 	/// <param name="pos">ポジション 記入例：{8,10}</param>
 	void SetPos(Vector2 pos) { score_.wldTForm_.translation_ = {pos.x, pos.y}; }
 
+	void SetPValPos(Vector2 pos) { playerVal_.wldTForm_.translation_ = {pos.x, pos.y}; }
+
 private:
 	// 描画時座標格納
 	Status score_;
+	// 描画時座標格納
+	Status playerVal_;
+
 	// 数値格納用変数（[桁数][数字数（０～９：１０個）]）
 	Sprite* sprite2DNum_[6][10];
+	Sprite* spritePVal2DNum_[3][10];
 };

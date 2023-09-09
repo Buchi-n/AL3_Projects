@@ -32,6 +32,14 @@ public:
 	/// </summary>
 	~Player();
 
+	/// <summary>
+	/// プレイヤーポジションゲッター
+	/// </summary>
+	/// <returns></returns>
+	Vector2 GetPos() {
+		return {player_.wldTForm_.translation_.x, player_.wldTForm_.translation_.y};
+	}
+
 private:
 	// キー入力用インプット
 	Input* input_ = nullptr;

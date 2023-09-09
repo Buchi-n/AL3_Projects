@@ -106,7 +106,7 @@ void Object::Update() {
 					y_->SetTextureHandle(h_);
 				}
 			}
-			if (ramdomObject2 == i) {
+			if (ramdomObject4 == i) {
 				if (i == 0) {
 					z_->SetTextureHandle(a_);
 				}

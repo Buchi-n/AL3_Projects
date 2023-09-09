@@ -45,12 +45,13 @@ void GameScene::Initialize() {
 	// プレイヤー初期化
 	player_ = new Player();
 	// 初期座標を入力
-	player_->initialize({220, 700});
+	player_->initialize({220, 550});
 	// スコア初期化
 	score_ = new Score();
 	score_->Initialize();
 	// 初期座標を入力（アンカー右端）
 	score_->SetPos({360, 100});
+	score_->SetPValPos({400, 700});
 	//オブジェクト初期化
 	object_ = new Object();
 	object_->Initialize();
@@ -170,7 +171,7 @@ void GameScene::Draw() {
 		object_->Draw();
 		// スコア描画
 		score_->Draw(score_->GetScore());
-
+		score_->DrawPVal(10);
 		break;
 		// リザルト
 	case Scene::Result:
