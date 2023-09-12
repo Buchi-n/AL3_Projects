@@ -52,7 +52,7 @@ void GameScene::Initialize() {
 	// 初期座標を入力（アンカー右端）
 	score_->SetPos({360, 100});
 	score_->SetPValPos({400, 700});
-	//オブジェクト初期化
+	// オブジェクト初期化
 	object_ = new Object();
 	object_->Initialize();
 }
@@ -77,7 +77,7 @@ void GameScene::Update() {
 		player_->Update();
 		// スコア更新
 		score_->AddScore(addScore_);
-		//オブジェクト更新
+		// オブジェクト更新
 		object_->Update();
 
 		// 　エンターキー押下（デバッグ用）
@@ -86,6 +86,15 @@ void GameScene::Update() {
 			scene_ = Scene::Result;
 			// スコア描画位置変更 < 本実装時は[シーン遷移 リザルト と同じ if 文内に入れる]
 			score_->SetPos({360, 400});
+		}
+		score_->SetPValPos(player_->GetPos());
+
+		// デバッグ
+		if (input_->TriggerKey(DIK_Q)) {
+			player_->ChangeVal(1, 0);
+		}
+		if (input_->TriggerKey(DIK_E)) {
+			player_->ChangeVal(1, 1);
 		}
 
 		break;
@@ -167,11 +176,11 @@ void GameScene::Draw() {
 	case Scene::GamePlay:
 		// プレイヤー描画
 		player_->Draw();
-		//オブジェクト描画
+		// オブジェクト描画
 		object_->Draw();
 		// スコア描画
 		score_->Draw(score_->GetScore());
-		score_->DrawPVal(10);
+		score_->DrawPVal(player_->GetVal());
 		break;
 		// リザルト
 	case Scene::Result:

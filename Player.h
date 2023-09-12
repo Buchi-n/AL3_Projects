@@ -40,6 +40,24 @@ public:
 		return {player_.wldTForm_.translation_.x, player_.wldTForm_.translation_.y};
 	}
 
+	/// <summary>
+	/// プレイヤー数ゲッター
+	/// </summary>
+	/// <returns></returns>
+	int GetVal() { return player_.val_; }
+
+	/// <summary>
+	/// プレイヤー数セッター
+	/// </summary>
+	/// <param name="val">0=add 1=pull</param>
+	void ChangeVal(int val, int add_pull) {
+		if (add_pull == 0) {
+			player_.val_ += val;
+		} else if (add_pull == 1) {
+			player_.val_ -= val;
+		}
+	}
+
 private:
 	// キー入力用インプット
 	Input* input_ = nullptr;

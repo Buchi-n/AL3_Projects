@@ -11,7 +11,7 @@ void Player::initialize(Vector2 pos) {
 	// スプライトデータ初期化
 	spritePlayer_ = Sprite::Create(texturePlayer, {pos.x, pos.y}, {1, 1, 1, 1}, {0.5f, 0.5f});
 	// プレイヤー移動速度
-	player_.moveSpeed_ = 1;
+	player_.moveSpeed_ = 5;
 }
 
 void Player::Update() {
