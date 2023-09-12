@@ -1,12 +1,12 @@
 ﻿#include "Object.h"
-#include<time.h>
+#include <time.h>
 
 void Object::Initialize() {
 	objectPos1.wldTForm_.Initialize();
 	objectPos2.wldTForm_.Initialize();
 	objectPos3.wldTForm_.Initialize();
 	objectPos4.wldTForm_.Initialize();
-	
+
 	w_ = Sprite::Create(a_, {64, -64}, {1, 1, 1, 1}, {(0.0f), (0.5f)});
 	x_ = Sprite::Create(b_, {192, -64}, {1, 1, 1, 1}, {(0.0f), (0.5f)});
 	y_ = Sprite::Create(c_, {320, -64}, {1, 1, 1, 1}, {(0.0f), (0.5f)});
@@ -14,15 +14,30 @@ void Object::Initialize() {
 }
 
 void Object::Update() {
-	//乱数
+	// 乱数
 	time_t CurrentTime = time(nullptr);
-	srand((unsigned int) CurrentTime);
-	
-	if (roopFlag == 0) {//ループ初期化
+	srand((unsigned int)CurrentTime);
+
+	if (roopFlag == 0) { // ループ初期化
 		ramdomObject1 = rand() % 7;
 		ramdomObject2 = rand() % 7;
 		ramdomObject3 = rand() % 7;
 		ramdomObject4 = rand() % 7;
+
+		while 
+		(ramdomObject1 >= 4 && ramdomObject2 >= 4 && ramdomObject3 >= 4 && ramdomObject4 >= 4) {
+			ramdomObject1 = rand() % 7;
+			ramdomObject2 = rand() % 7;
+			ramdomObject3 = rand() % 7;
+			ramdomObject4 = rand() % 7;
+		}
+		while
+		(ramdomObject1 <= 3 && ramdomObject2 <= 3 && ramdomObject3 <= 3 && ramdomObject4 <= 3) {
+			ramdomObject1 = rand() % 7;
+			ramdomObject2 = rand() % 7;
+			ramdomObject3 = rand() % 7;
+			ramdomObject4 = rand() % 7;
+		}
 		objectPos1.wldTForm_.translation_ = {0, -64};
 		objectPos2.wldTForm_.translation_ = {110, -64};
 		objectPos3.wldTForm_.translation_ = {220, -64};
@@ -133,9 +148,10 @@ void Object::Update() {
 				}
 			}
 		}
+
 		roopFlag = 1;
 	}
-	if (roopFlag == 1) {//オブジェクト移動
+	if (roopFlag == 1) { // オブジェクト移動
 		objectPos1.wldTForm_.translation_.y += objectSpeed;
 		objectPos2.wldTForm_.translation_.y += objectSpeed;
 		objectPos3.wldTForm_.translation_.y += objectSpeed;
@@ -144,27 +160,22 @@ void Object::Update() {
 			roopFlag = 0;
 		}
 	}
-	w_->SetPosition(
-	    {objectPos1.wldTForm_.translation_.x, objectPos1.wldTForm_.translation_.y});
-	x_->SetPosition(
-		{objectPos2.wldTForm_.translation_.x, objectPos2.wldTForm_.translation_.y});
-	y_->SetPosition(
-		{objectPos3.wldTForm_.translation_.x, objectPos3.wldTForm_.translation_.y});
-	z_->SetPosition(
-		{objectPos4.wldTForm_.translation_.x, objectPos4.wldTForm_.translation_.y});
+	w_->SetPosition({objectPos1.wldTForm_.translation_.x, objectPos1.wldTForm_.translation_.y});
+	x_->SetPosition({objectPos2.wldTForm_.translation_.x, objectPos2.wldTForm_.translation_.y});
+	y_->SetPosition({objectPos3.wldTForm_.translation_.x, objectPos3.wldTForm_.translation_.y});
+	z_->SetPosition({objectPos4.wldTForm_.translation_.x, objectPos4.wldTForm_.translation_.y});
 }
 
-void Object::Draw() { 
+void Object::Draw() {
 	w_->Draw();
 	x_->Draw();
 	y_->Draw();
 	z_->Draw();
 }
 
-Object::~Object() { 
+Object::~Object() {
 	delete w_;
 	delete x_;
 	delete y_;
 	delete z_;
 }
-

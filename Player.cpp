@@ -22,6 +22,13 @@ void Player::Update() {
 	if (input_->PushKey(DIK_D)) {
 		player_.wldTForm_.translation_.x += player_.moveSpeed_;
 	}
+	if (player_.wldTForm_.translation_.x - 16 < 0) {
+		player_.wldTForm_.translation_.x += player_.moveSpeed_;
+	}
+	if (player_.wldTForm_.translation_.x + 16 > 440) {
+		player_.wldTForm_.translation_.x -= player_.moveSpeed_;
+	}
+
 	// プレイヤー描画位置更新
 	spritePlayer_->SetPosition(
 	    {player_.wldTForm_.translation_.x, player_.wldTForm_.translation_.y});

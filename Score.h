@@ -46,7 +46,7 @@ public:
 	/// <param name="pos">ポジション 記入例：{8,10}</param>
 	void SetPos(Vector2 pos) { score_.wldTForm_.translation_ = {pos.x, pos.y}; }
 
-	void SetPValPos(Vector2 pos) { playerVal_.wldTForm_.translation_ = {pos.x, pos.y}; }
+	void SetPValPos(Vector2 pos) { playerVal_.wldTForm_.translation_ = {pos.x+=20, pos.y-=30}; }
 
 private:
 	// 描画時座標格納

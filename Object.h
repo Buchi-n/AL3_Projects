@@ -44,7 +44,7 @@ private:
 	uint32_t h_ = TextureManager::Load("obj/pull4.png");//+10
 
 	int roopFlag = 0;
-	int objectSpeed = 5;
+	int objectSpeed = 6;
 	int ramdomObject1 = 0;
 	int ramdomObject2 = 0;
 	int ramdomObject3 = 0;

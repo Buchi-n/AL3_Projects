@@ -28,6 +28,13 @@ void Score::Initialize() {
 	    TextureManager::Load("num/6.png"), TextureManager::Load("num/7.png"),
 	    TextureManager::Load("num/8.png"), TextureManager::Load("num/9.png"),
 	};
+	uint32_t textureSNum[10] = {
+	    TextureManager::Load("num/s0.png"), TextureManager::Load("num/s1.png"),
+	    TextureManager::Load("num/s2.png"), TextureManager::Load("num/s3.png"),
+	    TextureManager::Load("num/s4.png"), TextureManager::Load("num/s5.png"),
+	    TextureManager::Load("num/s6.png"), TextureManager::Load("num/s7.png"),
+	    TextureManager::Load("num/s8.png"), TextureManager::Load("num/s9.png"),
+	};
 	// 数値格納用変数初期化
 	for (int i = 0; i < 6; i++) {
 		for (int j = 0; j < 10; j++) {
@@ -38,7 +45,7 @@ void Score::Initialize() {
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 10; j++) {
 			spritePVal2DNum_[i][j] =
-			    Sprite::Create(textureNum[j], {0, 0}, {1, 1, 1, 1}, {(1.0f), (0.5f)});
+			    Sprite::Create(textureSNum[j], {0, 0}, {1, 1, 1, 1}, {(1.0f), (0.5f)});
 		}
 	}
 }
@@ -80,7 +87,7 @@ void Score::DrawPVal(int val) {
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 10; j++) {
 			spritePVal2DNum_[i][j]->SetPosition(
-			    {playerVal_.wldTForm_.translation_.x - (50 * i), playerVal_.wldTForm_.translation_.y});
+			    {playerVal_.wldTForm_.translation_.x - (13 * i), playerVal_.wldTForm_.translation_.y});
 		}
 	}
 	// 数字1文字分割

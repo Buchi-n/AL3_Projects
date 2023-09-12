@@ -53,7 +53,7 @@ private: // メンバ変数
 	// スコア用
 	Score* score_ = nullptr;
 	// スコア増加量
-	int addScore_ = 3;
+	int addScore_ = 9;
 	//オブジェクト
 	Object* object_ = nullptr;
 	/// <summary>
